@@ -9,7 +9,7 @@
     });    
 
     toolsView.bind('checkBalanceButton.click', function() {
-      toolsView.$checkBalanceContainer.fadeToggle();
+      toolsView.$checkBalanceContainer.slideToggle();
     });
   }
 
