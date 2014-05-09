@@ -54,6 +54,18 @@ input[type="password"] {
   padding: 5px;
 }
 
+.sub-content-child {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: #CCFF99;
+}
+
+.sub-content {
+  padding-left: 5px;
+  padding-right: 5px;  
+  background-color: #CCFF99;
+}
+
 .transaction {
   background-color: white;
 }

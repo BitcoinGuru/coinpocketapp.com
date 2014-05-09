@@ -7,10 +7,16 @@
     wallet.bind('addressCheck.updated', function(data) {
       toolsView.setAmount(wallet.balanceBTC());
     });    
+
+    toolsView.bind('checkBalanceButton.click', function() {
+      toolsView.$checkBalanceContainer.fadeToggle();
+    });
   }
 
   ToolsController.prototype.showOrHide = function(pageParams) {
     if (pageParams.page === '#/tools') {
+      toolsView.$checkBalanceContainer.hide();
+
       toolsView.show();
 
       //toolsView.setAddress('test');

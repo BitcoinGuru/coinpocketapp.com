@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" manifest="coinpocketapp.manifest">
   <head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <title>Coin Pocket</title>
 
     <link href="apple-touch-icon.png" rel="apple-touch-icon" />
@@ -256,37 +254,31 @@
 
           <div id="tools" class="content row">
             <div class="col-xs-12">
-              <h4>Check Address Balance</h4>
-              <div class="row">
-                <div class="col-xs-12">
+              <a id="check-balance-button" class="btn btn-default btn-block">Check Balance</a>
+            </div>
+            <div id="check-balance" class="sub-content row">
+              <div class="col-xs-12">
+                <div class="sub-content-child row">
                   <a id="scancode-button-check" href="scancode://scan" data-scancode-callback-path="/#/tools" class="btn btn-default btn-block">Scan Code</a>
-                  <hr>
                 </div>
-              </div>
-
-              <div class="row">
-                <div class="col-xs-12">
-                  <div id="address-group-check" class="form-group">
-                    <label class="control-label" for="address-check">Address</label>
-                    <input type="text" class="form-control" id="address-check" name="address" autocomplete="off">
+                <div id="address-group-check" class="form-group">
+                  <label class="control-label" for="address-check">Address</label>
+                  <input type="text" class="form-control" id="address-check" name="address" autocomplete="off">
+                </div>
+                <div id="amount-group-check" class="form-group">
+                  <label class="control-label" for="amount-check">Amount</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control text-right" id="amount-check" name="amount" autocomplete="off">
+                    <span class="input-group-addon">BTC</span>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-xs-6">
-                  <div id="amount-group-check" class="form-group">
-                    <label class="control-label" for="amount-check">Amount</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control text-right" id="amount-check" name="amount" autocomplete="off">
-                      <span class="input-group-addon">BTC</span>
-                    </div>
-                  </div>
-                </div>
-              </div>              
             </div>
             <div class="col-xs-12">
-              <a href="#/" class="btn btn-default btn-block">Done</a>
-            </div>            
+              <div class="content row">
+                <a href="#/" class="btn btn-default btn-block">Done</a>
+              </div>            
+            </div>
           </div>
 
           <div id="connection-status" class="row content" style="display:none">
@@ -510,6 +502,24 @@
     <script src="/vendor/bitcoin_network/src/blockchaininfo.js"></script>
     <script src="/vendor/bitcoin_network/src/helloblock.js"></script>
     <script src="/vendor/bitcoin_network/src/bitcoin_network.js"></script>
+
+    <script type="text/javascript" src="/vendor/jsqrcode/grid.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/version.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/detector.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/formatinf.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/errorlevel.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/bitmat.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/datablock.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/bmparser.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/datamask.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/rsdecoder.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/gf256poly.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/gf256.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/decoder.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/qrcode.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/findpat.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/alignpat.js"></script>
+    <script type="text/javascript" src="/vendor/jsqrcode/databr.js"></script>
 
     <script src="/js/coinpocketapp.js"></script>
     <script src="/js/models/browser.js"></script>

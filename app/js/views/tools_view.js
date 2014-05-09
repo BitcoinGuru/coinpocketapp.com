@@ -1,10 +1,19 @@
 (function($, Views) {
 
   function ToolsView() {
-    this.$container = $("#tools");
-    this.$address = $("#address-check");
-    this.$amount = $("#amount-check");
-    this.$sendBackupButton = $("#send-backup-button");
+    self = this;
+
+    self.$container = $("#tools");
+    self.$address = $("#address-check");
+    self.$amount = $("#amount-check");
+    self.$checkBalanceButton = $("#check-balance-button");
+    self.$checkBalanceContainer = $('#check-balance');
+
+    self.$checkBalanceButton.click(function(e) {
+      e.preventDefault();
+      self.trigger('checkBalanceButton.click');
+    });
+
     $("#scancode-button-check").scancode();
   }
 
