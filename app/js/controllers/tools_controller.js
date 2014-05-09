@@ -15,8 +15,6 @@
 
   ToolsController.prototype.showOrHide = function(pageParams) {
     if (pageParams.page === '#/tools') {
-      toolsView.$checkBalanceContainer.hide();
-
       toolsView.show();
 
       //toolsView.setAddress('test');
