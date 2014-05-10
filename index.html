@@ -1,79 +1,363 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en" manifest="coinpocketapp.manifest">
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Coinpocketapp.com : Bitcoin wallet that stores Bitcoin in your browser." />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Coinpocketapp.com</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+    <title>Coin Pocket</title>
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76">
+    <link href="apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120">
+    <link href="apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152">
+    <link href="css/styles.min.css" rel="stylesheet">
   </head>
-
   <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/BitcoinGuru/coinpocketapp.com">View on GitHub</a>
-
-          <h1 id="project_title">Coinpocketapp.com</h1>
-          <h2 id="project_tagline">Bitcoin wallet that stores Bitcoin in your browser.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/BitcoinGuru/coinpocketapp.com/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/BitcoinGuru/coinpocketapp.com/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+    <div class="container">
+      <div class="row">
+        <div id="main" class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" style="display:none">
+          <div class="bg-primary">
+            <div id="balance-container" class="row">
+              <div class="col-sm-12">
+                <h2 id="balance" class="text-center"><span data-btc="0">loading...</span></h2>
+              </div>
+            </div>
+            <div id="button-container" class="row">
+              <div id="send-button" class="col-xs-3">
+                <a href="#/send">Send</a>
+              </div>
+              <div id="settings-button" class="col-xs-3 text-center">
+                <a href="#/settings">Settings</a>
+              </div>
+              <div id="tools-button" class="col-xs-3 text-center">
+                <a href="#/tools">Tools</a>
+              </div>              
+              <div id="receive-button" class="col-xs-3 text-right">
+                <a href="#/receive">Receive</a>
+              </div>
+            </div>
+          </div>
+          <div id="send" class="content row">
+            <div id="scancode" class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-10">
+                  <a id="scancode-button" href="scancode://scan" data-scancode-callback-path="/#/send" class="btn btn-default btn-block">Scan Code</a>
+                </div>
+                <div class="col-xs-2">
+                  <a href="https://itunes.apple.com/us/app/scan-code-qr-code-reader/id828167977?ls=1&amp;mt=8" class="btn btn-default btn-block" data-confirm="Coin Pocket uses 'Scan Code - QR Code Reader'. Launch App Store now?"><span class="glyphicon glyphicon-info-sign"></span></a>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="col-xs-12">
+              <form role="form" action="#/confirmation">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div id="address-group" class="form-group">
+                      <label class="control-label" for="address">Address</label>
+                      <input type="text" class="form-control" id="address" name="address" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div id="amount-group" class="form-group">
+                      <label class="control-label" for="amount">Amount</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control text-right" id="amount" name="amount" autocomplete="off">
+                        <span class="input-group-addon">BTC</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 no-label nowrap">
+                    <button id="switch-units" class="btn btn-default" type="button"><span class="glyphicon glyphicon-resize-horizontal"></span></button>
+                    <span id="conversion">$0.00 USD</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <span class="help-block">A miner fee is added in the next step.</span>
+                    <hr>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <a href="#/" class="btn btn-default btn-block">Cancel</a>
+                  </div>
+                  <div class="col-xs-6">
+                    <button id="next-button" class="btn btn-primary btn-block">Next</button>
+                  </div>
+                  <div class="col-xs-12 text-right">
+                    <span id="send-validation-message" class="text-danger"></span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="confirmation" class="content row">
+            <div class="col-xs-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="col-xs-8 panel-title text-left">
+                      <span class="nowrap">Sending <span id="confirmation-summary-btc"></span></span>
+                      <span class="nowrap">~ <span id="confirmation-summary-usd"></span></span>
+                    </div>
+                    <div class="col-xs-4 text-right"><a class="toggle-panel" href="#">show details</a></div>
+                  </div>
+                </div>
+                <div class="panel-body" style="display:none">
+                  <div class="row">
+                    <div class="col-xs-6 text-left">
+                      <p>Total Inputs</p>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <p id="confirmation-total-inputs"></p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div id="confirmation-outputs">
+                    <div id="confirmation-output-template" class="row" style="display:none">
+                      <div class="col-xs-6 text-left">
+                        <p class="confirmation-output-label overflow-ellipsis"></p>
+                      </div>
+                      <div class="col-xs-6 text-right">
+                        <p class="confirmation-output-amount"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-xs-6 text-left">
+                      <p>Net Transaction</p>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                      <p id="confirmation-net-transaction-btc"></p>
+                      <p id="confirmation-net-transaction-usd"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <p>Enter your password below to send this transaction.</p>
+              <form id="confirmation-form" role="form" action="#/confirmation">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="confirmation-password" name="password">
+                    </div>
+                    <hr>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <a id="confirmation-back-button" href="#/send" class="btn btn-default btn-block">Back</a>
+                  </div>
+                  <div class="col-xs-6">
+                    <button id="confirmation-send-button" type="button" class="btn btn-primary btn-block" data-loading-text="Sending...">Send</button>
+                  </div>
+                  <div class="col-xs-12 text-right">
+                    <span id="confirmation-validation-message" class="text-danger"></span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="settings" class="content row">
+            <div class="col-xs-12">
+              <p>Conversion Rate for 1 BTC</p>
+              <hr>
+              <div id="conversion-rates" class="list-group">
+              </div>
+              <hr>
+            </div>
+            <div class="col-xs-12">
+              <a href="#/" class="btn btn-default btn-block">Done</a>
+            </div>
+          </div>
+          <div id="receive" class="content row">
+            <div class="col-xs-12">
+              <p id="receive-address" class="text-center"></p>
+            </div>
+            <div class="col-xs-12">
+              <div id="qrcode"></div>
+<br>
+            </div>
+            <div class="col-xs-12">
+              <a id="email-button" href="" class="btn btn-primary btn-block">Compose Email</a>
+              <a href="#/" class="btn btn-default btn-block">Done</a>
+            </div>
+          </div>
+          <div id="tools" class="content row">
+            <div class="col-xs-12">
+              <a id="check-balance-button" class="btn btn-default btn-block">Check Balance</a>
+            </div>
+            <div id="check-balance" class="sub-content row">
+              <div class="col-xs-12">
+                <div class="sub-content-child row">
+                  <a id="scancode-button-check" href="scancode://scan" data-scancode-callback-path="/#/tools" class="btn btn-default btn-block">Scan Code</a>
+                </div>
+                <div id="address-group-check" class="form-group">
+                  <label class="control-label" for="address-check">Address</label>
+                  <input type="text" class="form-control" id="address-check" name="address" autocomplete="off">
+                </div>
+                <div id="amount-group-check" class="form-group">
+                  <label class="control-label" for="amount-check">Amount</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control text-right" id="amount-check" name="amount" autocomplete="off">
+                    <span class="input-group-addon">BTC</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="content row">
+                <a href="#/" class="btn btn-default btn-block">Done</a>
+              </div>            
+            </div>
+          </div>
+          <div id="connection-status" class="row content" style="display:none">
+            <div class="col-xs-12">
+              <p>
+                <strong>Connection Unavailable</strong>
+              </p>
+              <p>
+                Oops! You are not connected to the block chain! Your transactions and balance may be out of sync. Try to connect by <a href="/">refreshing</a>.
+              </p>
+            </div>
+          </div>
+          <div id="empty-state" class="content row">
+            <div class="col-xs-12">
+              <div class="page-header"><h2>Coin Pocket <small class="nowrap">Bitcoin in your browser</small>
+</h2></div>
+              <p>Thanks for trying Coin Pocket!</p>
+              <p>Your Bitcoin address is: <span id="empty-state-receive-address"></span></p>
+              <h3>Getting Started</h3>
+              <p>Before you jump in, please follow the steps below.</p>
+              <ol>
+                <li>Backup your device now!</li>
+                <li>Practice restoring from that backup.</li>
+                <li class="ios-only">Read more detail on backups and general <a href="https://github.com/enriquez/coinpocketapp.com/wiki/iOS-Safety-Tips" target="_blank">safety tips for iOS users on the wiki</a>
+</li>
+                <li class="ios-only">To scan QR Codes, download <a href="https://itunes.apple.com/us/app/scan-code-qr-code-reader/id828167977?ls=1&amp;mt=8">Scan Code from the App Store</a>
+</li>
+                <li>Bookmark this page.</li>
+                <li>Send some Bitcoin to this wallet's address located on the <a href="#/receive">Receive</a> link above.</li>
+              </ol>
+              <h3>About</h3>
+              <p>Coin Pocket is an <a href="https://github.com/enriquez/coinpocketapp.com" target="_blank">open source project</a> created by <a href="http://enriquez.me" target="_blank">Mike Enriquez</a>. It is officially hosted and maintained at <a href="https://btc.coinpocketapp.com">https://btc.coinpocketapp.com</a>.</p>
+            </div>
+          </div>
+          <div id="transactions" data-current-block-height="">
+            <div id="transaction-template" class="content transaction row" data-tx-id="0" style="display:none">
+              <div class="col-xs-4 transaction-preview" data-time="">
+                <span class="date"></span><br>
+                <span class="time"></span>
+              </div>
+              <div class="col-xs-8 transaction-preview text-right">
+                <span class="value" data-btc=""></span>
+                <span class="confirmations" data-block-height=""></span>
+              </div>
+              <table class="table table-condensed transaction-details" style="display:none">
+                <tbody>
+                  <tr>
+                    <td><strong>Confirmations</strong></td>
+                    <td class="text-right" data-block-height=""></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Miner Fee</strong></td>
+                    <td class="text-right transaction-fee"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Inputs</strong></td>
+                    <td class="text-right"><a class="toggle-input-row" href="#">show</a></td>
+                  </tr>
+                  <tr class="inputs-row" style="display:none">
+                    <td colspan="2" class="transaction-inputs">
+                      <div class="inputs-row-template" style="display:none">
+                        <div class="text-left col-xs-7 col-sm-8 overflow-ellipsis inputs-address"></div>
+                        <div class="text-right col-xs-5 col-sm-4 inputs-btc"></div>
+                      </div>
+                      <div class="col-xs-12"><hr></div>
+                      <div class="text-left col-xs-7 col-sm-8">Total Inputs</div>
+                      <div class="text-right col-xs-5 col-sm-4 total-inputs-btc"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Outputs</strong></td>
+                    <td class="text-right"><a class="toggle-output-row" href="#">show</a></td>
+                  </tr>
+                  <tr class="outputs-row" style="display:none">
+                    <td colspan="2" class="transaction-outputs">
+                      <div class="outputs-row-template" style="display:none">
+                        <div class="text-left col-xs-7 col-sm-8 overflow-ellipsis outputs-address"></div>
+                        <div class="text-right col-xs-5 col-sm-4 outputs-btc"></div>
+                      </div>
+                      <div class="col-xs-12"><hr></div>
+                      <div class="text-left col-xs-7 col-sm-8">Total Outputs</div>
+                      <div class="text-right col-xs-5 col-sm-4 total-outputs-btc"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="load-more" class="content row" style="display:none">
+            <a href="#" id="load-more-button" class="btn btn-link btn-lg col-xs-12" data-loading-text="loading...">Load More Transactions</a>
+          </div>
+          <footer class="text-center">
+            <p>
+              Coin Pocket <span class="coin-pocket-version"></span> ·
+              <a href="http://github.com/enriquez/coinpocketapp.com" target="_blank">Source</a> ·
+              <a href="http://github.com/enriquez/coinpocketapp.com/blob/master/LICENSE.txt" target="_blank">MIT License</a>
+            </p>
+            <p>© 2014 <a href="http://enriquez.me" target="_blank">Enriquez Software LLC.</a></p>
+          </footer>
+        </div>
+      </div>
     </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Welcome to Coin Pocket <small class="nowrap">Bitcoin in your browser</small>
+</h4>
+          </div>
+          <form id="welcome-modal-form" role="form" action="#">
+            <div id="welcome-modal-unsupported" class="modal-body" style="display:none">
+              <p><strong>Failed Browser Check :(</strong></p>
+              <p class="reason"></p>
+            </div>
+            <div id="welcome-modal-body" class="modal-body">
+              <p>This browser does not have an address stored. Generate a new address by filling out the form below and hitting continue.</p>
+              <div id="welcome-modal-password-group" class="form-group">
+                <label class="control-label" for="password">Password (at least 4 characters)</label>
+                <input type="password" class="form-control" id="password" name="password">
+                <span class="help-block">DO NOT FORGET THIS PASSWORD. There is no way to recover it.</span>
+              </div>
+              <div id="welcome-modal-password-confirmation-group" class="form-group">
+                <label class="control-label" for="password-confirmation">Password Confirmation</label>
+                <input type="password" class="form-control" id="password-confirmation" name="password-confirmation">
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="entropy">Entropy Level (Randomness)</label>
+                <div class="progress progress-striped active">
+                  <div id="welcome-modal-entropy" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="1">
+                    <span></span>
+                  </div>
+                </div>
+                <span class="help-block">Move your device around. Data from your device's accelerometers (and other sources) is collected to generate your keys.</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <span id="welcome-modal-validation-message" class="text-danger"></span> 
+              <button id="welcome-modal-continue" class="btn btn-primary" data-loading-text="Please Wait...">Continue</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Coinpocketapp.com maintained by <a href="https://github.com/BitcoinGuru">BitcoinGuru</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+    <script src="js/scripts.min.js"></script>
   </body>
 </html>
