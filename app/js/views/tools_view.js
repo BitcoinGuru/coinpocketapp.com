@@ -12,8 +12,6 @@
     self.$checkBalanceButton.click(function(e) {
       self.trigger('checkBalanceButton.click');
     });
-
-    $("#scancode-button-check").scancode();
   }
 
   ToolsView.prototype.show = function() {
