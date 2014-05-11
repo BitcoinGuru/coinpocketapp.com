@@ -19,7 +19,8 @@
           }
         }
 
-        var callbackUrl = protocol + "//" + document.location.host + $(this).data(settings.dataAttr);
+        var callbackUrl = protocol + "//" + document.domain + "/" 
+          + location.pathname.split('/')[1] + "/" + $(this).data(settings.dataAttr);
         var scanCodeUrl = "scancode://scan?callback=" + encodeURIComponent(callbackUrl);
         window.location = scanCodeUrl;
       });
