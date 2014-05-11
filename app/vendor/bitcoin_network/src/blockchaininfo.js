@@ -6,7 +6,7 @@ var BlockChainInfo = (function(self, $) {
       type: 'GET',
       url: url,
       timeout: 5000,
-      data: { cors: 'true', format: 'json' },
+      data: { cors: 'true', format: 'jsonp' },
       success: function(data) {
         hollaback(data, true);
       },
@@ -26,7 +26,7 @@ var BlockChainInfo = (function(self, $) {
       type: 'GET',
       url: url,
       timeout: 5000,
-      data: { cors: 'true', format: 'json' },
+      data: { cors: 'true', format: 'jsonp' },
       success: function(data) {
         hollaback(data, true);
       },
