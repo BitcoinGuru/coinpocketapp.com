@@ -45,19 +45,27 @@ var validateAddress = function(address, hollaback) {
 };
 
 var getPrivateKeyWIF = function(password, keyPair, hollaback) {
-  var privateKeyExponent = sjcl.json.decrypt(password, keyPair.encryptedPrivateKeyExponent);
+  try {
+    var privateKeyExponent = sjcl.json.decrypt(password, keyPair.encryptedPrivateKeyExponent);
 
-  var privateKeyAndVersion = "80" + privateKeyExponent;
-  var firstSHA = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(sjcl.codec.hex.toBits(privateKeyAndVersion)));
+    var privateKeyAndVersion = "80" + privateKeyExponent;
+    var firstSHA = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(sjcl.codec.hex.toBits(privateKeyAndVersion)));
 
-  var secondSHA = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(sjcl.codec.hex.toBits(firstSHA)));
-  var checksum = secondSHA.substr(0, 8);
+    var secondSHA = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(sjcl.codec.hex.toBits(firstSHA)));
+    var checksum = secondSHA.substr(0, 8);
 
-  var keyWithChecksum = privateKeyAndVersion + checksum;
+    var keyWithChecksum = privateKeyAndVersion + checksum;
 
-  var privateKeyWIF = sjcl.codec.base58.fromBits(sjcl.codec.hex.toBits(keyWithChecksum));
+    var privateKeyWIF = sjcl.codec.base58.fromBits(sjcl.codec.hex.toBits(keyWithChecksum));
 
-  hollaback(privateKeyWIF);
+    hollaback(privateKeyWIF);
+  } catch (e) {
+    if (e instanceof sjcl.exception.corrupt) {
+      hollaback({ error: 'Invalid Password' });
+    } else {
+      hollaback({ error: 'Error: ' + e.message });
+    }
+  }
 };
 
 var buildAndSignRawTransaction = function(seed, password, keyPair, inputs, outputs, hollaback) {

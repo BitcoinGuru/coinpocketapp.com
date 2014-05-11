@@ -9,10 +9,14 @@
   }
 
   ViewPKController.prototype.showOrHide = function(pageParams) {
-    if (pageParams.page === '#/viewpk')
+    if (pageParams.page === '#/viewpk') {
       viewPKView.show();
-    else
+      viewPKView.$form.show();
+    } else {
       viewPKView.hide();
+      viewPKView.$viewPKKey.text('');
+      viewPKView.$viewPKCode.html('');
+    }
   };
 
   ViewPKController.prototype.submitButtonClicked = function($form) {
@@ -21,10 +25,14 @@
     viewPKView.loading();
 
     bitcoinWorker.async("getPrivateKeyWIF", [password, keyPair], function(result) {
-      console.log(result);
-      self.setPK(result);
-      viewPKView.doneLoading();
-      viewPKView.$form.hide();
+      if(typeof result.error == 'undefined') {
+        self.setPK(result);
+        viewPKView.doneLoading();
+        viewPKView.$form.hide();
+      } else {
+        viewPKView.validationMessage(result.error);
+        viewPKView.doneLoading();        
+      }
     });
   };
 

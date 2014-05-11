@@ -10,6 +10,7 @@
     self.$backButton = $("#viewpk-back-button");
     self.$validationMessage = $("#viewpk-validation-message");
     self.$viewPKKey = $("#viewpk-key");
+    self.$viewPKCode = $("#viewpk-qrcode");
 
     self.$submitButton.click(function() {
       self.trigger('submitButton.click', self.$form);
