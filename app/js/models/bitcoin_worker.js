@@ -6,7 +6,7 @@
     self.currentMessageId = 0;
     self.callbacks = {};
 
-    self.worker = new Worker('/js/workers/bitcoin_worker.js');
+    self.worker = new Worker('js/workers/bitcoin_worker.js');
     self.worker.postMessage({}); // trigger async download of worker script
     self.worker.onmessage = function(e) {
       var message = e.data;
