@@ -44,6 +44,22 @@ var validateAddress = function(address, hollaback) {
   hollaback(result);
 };
 
+var getPrivateKeyWIF = function(password, keyPair, hollaback) {
+  var privateKeyExponent = sjcl.json.decrypt(password, keyPair.encryptedPrivateKeyExponent);
+
+  var privateKeyAndVersion = "80" + privateKeyExponent;
+  var firstSHA = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(sjcl.codec.hex.toBits(privateKeyAndVersion)));
+
+  var secondSHA = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(sjcl.codec.hex.toBits(firstSHA)));
+  var checksum = secondSHA.substr(0, 8);
+
+  var keyWithChecksum = privateKeyAndVersion + checksum;
+
+  var privateKeyWIF = sjcl.codec.base58.fromBits(sjcl.codec.hex.toBits(keyWithChecksum));
+
+  hollaback(privateKeyWIF);
+};
+
 var buildAndSignRawTransaction = function(seed, password, keyPair, inputs, outputs, hollaback) {
   if (seed.length < 32) throw "Seed must be 32 words";
   sjcl.random.addEntropy(seed, 1024, "client");

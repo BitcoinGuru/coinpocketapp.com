@@ -27,7 +27,8 @@
     "#/receive",
     "#/confirmation",
     "#/tools",
-    "#/tool_check"
+    "#/tool_check",
+    "#/viewpk"
   ];
 
   // Warning: params are not sanitized.
