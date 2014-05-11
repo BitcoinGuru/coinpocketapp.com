@@ -9,6 +9,7 @@
     self.$submitButton = $("#viewpk-submit-button");
     self.$backButton = $("#viewpk-back-button");
     self.$validationMessage = $("#viewpk-validation-message");
+    self.$decryptedContainer = $("#viewpk-decrypted");
     self.$viewPKKey = $("#viewpk-key");
     self.$viewPKCode = $("#viewpk-qrcode");
 

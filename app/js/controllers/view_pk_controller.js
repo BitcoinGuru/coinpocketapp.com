@@ -12,6 +12,7 @@
     if (pageParams.page === '#/viewpk') {
       viewPKView.show();
       viewPKView.$form.show();
+      viewPKView.$decryptedContainer.hide();
     } else {
       viewPKView.hide();
       viewPKView.$viewPKKey.text('');
@@ -26,6 +27,7 @@
 
     bitcoinWorker.async("getPrivateKeyWIF", [password, keyPair], function(result) {
       if(typeof result.error == 'undefined') {
+        viewPKView.$decryptedContainer.show();
         self.setPK(result);
         viewPKView.doneLoading();
         viewPKView.$form.hide();
