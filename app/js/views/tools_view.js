@@ -13,7 +13,7 @@
       self.trigger('checkBalanceButton.click');
     });
 
-    $("#scancode-button-check").scancode({dataAttr: 'tool_check'});
+    $("#scancode-button-check").scancode();
   }
 
   ToolsView.prototype.show = function() {
