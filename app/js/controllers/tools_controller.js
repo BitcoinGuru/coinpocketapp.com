@@ -29,7 +29,7 @@
             wallet.fetchUnspentOutputs(result.address, null, 'addressCheck.updated');
           }
 
-          pageHash.goTo("#/tools"); // clear qr code data from url
+          pageHash.goTo("#/tool_check"); // clear qr code data from url
         });
       }      
     } else {
