@@ -195,18 +195,33 @@
             </div>
             <div id="check-balance" class="sub-content row">
               <div class="col-xs-12">
+                <div id="check-balance-scancode-container" class="sub-content-child row" style="margin-top:0px;">
+                  <div class="col-xs-10" style="padding-left:0px;">
+                    <a id="scancode-button-check" href="scancode://scan" data-scancode-callback-path="/#/tool_check" class="btn btn-default btn-block">Scan Code</a>
+                  </div>
+                  <div class="col-xs-2" style="padding-right:0px;">
+                    <a href="https://itunes.apple.com/us/app/scan-code-qr-code-reader/id828167977?ls=1&amp;mt=8" class="btn btn-default btn-block" data-confirm="Coin Pocket uses 'Scan Code - QR Code Reader'. Launch App Store now?"><span class="glyphicon glyphicon-info-sign"></span></a>
+                  </div>
+                </div>
                 <div class="sub-content-child row">
-                  <a id="scancode-button-check" href="scancode://scan" data-scancode-callback-path="/#/tool_check" class="btn btn-default btn-block">Scan Code</a>
-                </div>
-                <div id="address-group-check" class="form-group">
-                  <label class="control-label" for="address-check">Address</label>
-                  <input type="text" class="form-control" id="address-check" name="address" autocomplete="off">
-                </div>
-                <div id="amount-group-check" class="form-group">
-                  <label class="control-label" for="amount-check">Amount</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control text-right" id="amount-check" name="amount" autocomplete="off">
-                    <span class="input-group-addon">BTC</span>
+                  <div id="address-group-check" class="form-group">
+                    <label class="control-label" for="address-check">Address</label>
+                    <input type="text" class="form-control" id="address-check" name="address" autocomplete="off">
+                  </div>
+                  <div class="col-xs-6" style="padding-left:0px;">
+                    <div id="amount-group-check" class="form-group">
+                      <label class="control-label" for="amount-check">Amount</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control text-right" id="amount-check" name="amount" autocomplete="off">
+                        <span class="input-group-addon">BTC</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div id="amount-group-check" class="form-group">
+                      <label class="control-label"> </label>
+                      <a id="get-balance-button" class="btn btn-default btn-block">Get Balance</a>
+                    </div>
                   </div>
                 </div>
               </div>
