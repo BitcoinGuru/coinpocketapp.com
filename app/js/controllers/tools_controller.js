@@ -10,7 +10,6 @@
 
     toolsView.bind('checkBalanceButton.click', function() {
       toolsView.$checkBalanceContainer.slideToggle();
-      toolsView.$checkBalanceButton.scancode();
     });
   }
 
