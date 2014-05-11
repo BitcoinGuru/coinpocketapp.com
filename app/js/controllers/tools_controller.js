@@ -16,8 +16,10 @@
   ToolsController.prototype.showOrHide = function(pageParams) {
     if (pageParams.page === '#/tools') {
       toolsView.show();
-
-      //toolsView.setAddress('test');
+      toolsView.$checkBalanceContainer.hide();
+    } else if (pageParams.page === '#/tool_check') {
+      toolsView.show();
+      toolsView.$checkBalanceContainer.show();
 
       if (pageParams.params.code) {
         bitcoinWorker.async("parseCode", [pageParams.params.code], function(result) {

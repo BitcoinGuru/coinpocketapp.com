@@ -10,7 +10,6 @@
     self.$checkBalanceContainer = $('#check-balance');
 
     self.$checkBalanceButton.click(function(e) {
-      e.preventDefault();
       self.trigger('checkBalanceButton.click');
     });
 
