@@ -164,38 +164,6 @@
               </form>
             </div>
           </div>
-          <div id="viewpk" class="content row">
-            <form id="viewpk-form" role="form" action="#/tool_view">
-              <p>Enter your password to view your private key.</p>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="viewpk-password" name="password">
-                  </div>
-                  <hr>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-6">
-                  <a id="viewpk-back-button" href="#/tools" class="btn btn-default btn-block">Back</a>
-                </div>
-                <div class="col-xs-6">
-                  <button id="viewpk-submit-button" type="button" class="btn btn-primary btn-block" data-loading-text="Decrypting...">Submit</button>
-                </div>
-                <div class="col-xs-12 text-right">
-                  <span id="viewpk-validation-message" class="text-danger"></span>
-                </div>
-              </div>
-            </form>
-            <div class="col-xs-12">
-              <div class="content row">
-                <p id="viewpk-key" class="text-center" style="width: 270px; word-wrap:break-word; margin:auto;"></p>
-                <div id="viewpk-qrcode" class="qrcode"></div>
-<br>
-              </div>
-            </div>            
-          </div>
           <div id="settings" class="content row">
             <div class="col-xs-12">
               <p>Conversion Rate for 1 BTC</p>
@@ -254,6 +222,42 @@
               </div>            
             </div>
           </div>
+          <div id="viewpk" class="content row">
+            <div class="col-xs-12">
+              <div class="content row">
+                <form id="viewpk-form" role="form" action="#/tool_view">
+                  <p>Enter your password to view your private key.</p>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="viewpk-password" name="password">
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <a id="viewpk-back-button" href="#/tools" class="btn btn-default btn-block">Back</a>
+                    </div>
+                    <div class="col-xs-6">
+                      <button id="viewpk-submit-button" type="button" class="btn btn-primary btn-block" data-loading-text="Decrypting...">Submit</button>
+                    </div>
+                    <div class="col-xs-12 text-right">
+                      <span id="viewpk-validation-message" class="text-danger"></span>
+                    </div>
+                  </div>
+                </form>
+                <div class="col-xs-12" id="viewpk-decrypted">
+                  <div class="content row">
+                    <p id="viewpk-key" class="text-center" style="width: 270px; word-wrap:break-word; margin:auto; margin-bottom:5px;"></p>
+                    <div id="viewpk-qrcode" class="qrcode"></div>
+<br>
+                  </div>
+                </div>  
+              </div>  
+            </div>        
+          </div>          
           <div id="connection-status" class="row content" style="display:none">
             <div class="col-xs-12">
               <p>
