@@ -10,8 +10,8 @@ css/glyphicons-halflings-regular.svg  # d168d50a88c730b4e6830dc0da2a2b51dae4658a
 css/glyphicons-halflings-regular.ttf  # bd18efd3efd70fec8ad09611a20cdbf99440b2c1d40085c29be036f891d65358
 css/glyphicons-halflings-regular.woff # fc969dc1c6ff531abcf368089dcbaf5775133b0626ff56b52301a059fc0f9e1e
 css/styles.min.css                    # 27b785b93b73fd29aaded0c40142f3b39a935de8e75498b22a3ef4fb6c6d7fc4
-index.html                            # 58c62ab32a255ba4a3326581eeec526e9c0be8f213c957db228fb3fc44db1e0c
-js/scripts.min.js                     # ae05de259bc0e9b91b3e621d1ccfc765b8bac1b1f196a0aeeeff5aa5092d50b7
+index.html                            # e05bd3d56008b51faf4edc47d44b8fb55e1dd142004e7e7cebb498a347a0d569
+js/scripts.min.js                     # c038b3129d9413fa53855827e46072b016b8d60a75ae338adbbbf9422ea366dc
 js/workers/bitcoin_worker.js          # 133d7870951405d9bba97e405af2fb4a9f244bb68df552c7fc1d81766cf8e72b
 
 NETWORK:
